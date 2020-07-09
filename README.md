@@ -1,1 +1,2 @@
-# Huffman algorithm (Python)
+# Algos
+
