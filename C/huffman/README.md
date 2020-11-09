@@ -1,1 +1,1 @@
-#Huffman encription algorithm
+# Huffman encription algorithm
