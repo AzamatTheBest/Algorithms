@@ -1,1 +1,1 @@
-
+# Lempel-Ziv encoding algorithm
