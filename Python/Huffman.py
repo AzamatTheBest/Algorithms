@@ -1,7 +1,7 @@
 import math
 
 encoded_dict = dict()
-decdoing_dict = dict()
+decoding_dict = dict()
 one_more_mass = []
 def encodeHuffman(fileIn, fileOut):
     if open(fileIn).read():
@@ -63,8 +63,8 @@ def decodeHuffman(fileIn, fileOut):
     for row in open(fileIn):
         for element in row:
             var += element
-            if var in decdoing_dict.keys():
-                simple_file.write(decdoing_dict[var])
+            if var in decoding_dict.keys():
+                simple_file.write(decoding_dict[var])
                 var = ""
-decdoing_dict = encodeHuffman("text1.txt", "file3.txt")
+decoding_dict = encodeHuffman("text1.txt", "file3.txt")
 decodeHuffman("file3.txt", "oneFile.txt")
