@@ -15,7 +15,7 @@ static node_t nodes[MAX_LEN];
 static char symbols[MAX_LEN];
 static node_t root_node;
 
-void count_frequences(char *string);
+void count_frequencies(char *string);
 int is_symbol_written(char symbol);
 void sort_nodes(void);
 void create_tree(void);
@@ -29,9 +29,9 @@ int main(int argc, char **argv)
     char string[MAX_LEN] = "go go gophers";
     char encoded_string[MAX_LEN];
     
-    count_frequences(string);
+    count_frequencies(string);
 
-    printf("%s\n------Frequences------\n", string);
+    printf("%s\n------Frequencies------\n", string);
     for (int i = 0; nodes[i].data; i++)
     {
 	printf("%c %d\n", nodes[i].data, nodes[i].frequency);
@@ -53,7 +53,7 @@ int main(int argc, char **argv)
     return 0;
 }
 
-void count_frequences(char *string)
+void count_frequencies(char *string)
 {
     int i, j, pointer;
 
