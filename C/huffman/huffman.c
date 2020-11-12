@@ -20,7 +20,6 @@ int is_symbol_written(char symbol);
 void sort_nodes(void);
 void create_tree(void);
 int count_number_of_nodes(void);
-void print_tree(node_t *node);
 void calculate_codes(node_t *node, char code[]);
 void encode_the_message(char *message, char *encoded_message);
 
@@ -161,21 +160,6 @@ int count_number_of_nodes(void)
     for (i = 0; nodes[i].frequency; i++);
     
     return i;
-}
-
-void print_tree(node_t *node)
-{
-    node_t *temp = node;
-
-    if (temp->left == NULL && temp->right == NULL)
-    {
-	printf("%c %d\n", temp->data, temp->frequency);	
-    }
-    else
-    {
-	print_tree(temp->left);
-	print_tree(temp->right);
-    }
 }
 
 void calculate_codes(node_t *node, char code[])
