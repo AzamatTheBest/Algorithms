@@ -30,13 +30,14 @@ int are_equal(char *string1, char *string2);
 
 int main(int argc, char **argv)
 {
-    char string[MAX_LEN] = "go go gophers";
+    char string[MAX_LEN] = "Javascript is shit";
     char encoded_string[MAX_LEN];
     char decoded_string[MAX_LEN];
     
     count_frequencies(string);
 
-    printf("%s\n------Frequencies------\n", string);
+    printf("\nString to encode: %s\n", string);
+    printf("\n------Frequencies------\n");
     for (int i = 0; nodes[i].data; i++)
     {
 	printf("%c %d\n", nodes[i].data, nodes[i].frequency);
