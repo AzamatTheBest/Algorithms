@@ -8,7 +8,10 @@ void lz_encode(char *string_to_encode, char *encoded_string);
 int is_written(char *string);
 int are_equal(char *string1, char *string2);
 int get_index(char *string);
+int strlen(char *string);
 void write_to_dictionary(char *string);
+void itoa(int number, char *string);
+void reverse(char *string);
 
 int main(int argc, char **argv)
 {
@@ -18,14 +21,19 @@ int main(int argc, char **argv)
 
     printf("String to encode: %s\n", string_to_encode);
     printf("Encoded string: %s\n", encoded_string);
+
+    char another_string[MAX_LEN];
+    itoa(253, another_string);
+    printf("\n%s", another_string);
     return 0;
 }
 
 void lz_encode(char *string_to_encode, char *encoded_string)
 {
-    char temp_code[MAX_LEN];
+    char temp_code[MAX_LEN], index_as_string[MAX_LEN];
     int i, j, temp_pointer, encoded_pointer, index;
 
+    index = -1;
     for (i = temp_pointer = encoded_pointer = 0; string_to_encode[i] != '\0'; i++)
     {
 	temp_code[temp_pointer++] = string_to_encode[i];
@@ -45,9 +53,13 @@ void lz_encode(char *string_to_encode, char *encoded_string)
 		}
 	    }
 	    else
-	    {
-		encoded_string[encoded_pointer++] = index + '0';
-		encoded_string[encoded_pointer++] = temp_code[temp_pointer - 1];
+	    {		
+		itoa(index, index_as_string);
+		for (j = 0; index_as_string[j] != '\0'; j++)
+		{
+		    encoded_string[encoded_pointer++] = index_as_string[j];
+		}
+		encoded_string[encoded_pointer++] = temp_code[temp_pointer - 1];		
 	    }
 	    temp_pointer = 0;
 	    write_to_dictionary(temp_code);
@@ -113,5 +125,43 @@ void write_to_dictionary(char *string)
     }
 
     dictionary[i][j] = '\0';
+}
+
+void itoa(int number, char *string)
+{
+    int i = 0;
+
+    do
+    {
+	string[i++] = number % 10 + '0';
+	number /= 10;
+    }
+    while (number > 0);
+
+    string[i] = '\0';
+    reverse(string);
+}
+
+void reverse(char *string)
+{
+    int i;
+    int len = strlen(string);
+    char temp;
+    
+    for (i = 0; i < len / 2; i++)
+    {
+	temp = string[len - 1 - i];
+	string[len - 1 - i] = string[i];
+	string[i] = temp;
+    }
+}
+
+int strlen(char *string)
+{
+    int i;
+
+    for (i = 0; string[i] != '\0'; i++);
+
+    return i;
 }
 
