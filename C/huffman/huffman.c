@@ -20,13 +20,19 @@ int is_symbol_written(char symbol);
 void sort_nodes(void);
 void create_tree(void);
 int count_number_of_nodes(void);
+void print_tree(node_t *node);
 void calculate_codes(node_t *node, char code[]);
 void encode_the_message(char *message, char *encoded_message);
+void decode_the_message(char *message, char *decoded_message);
+int code_is_written(char *code);
+int symbol_is_written(char symbol);
+int are_equal(char *string1, char *string2);
 
 int main(int argc, char **argv)
 {
     char string[MAX_LEN] = "go go gophers";
     char encoded_string[MAX_LEN];
+    char decoded_string[MAX_LEN];
     
     count_frequencies(string);
 
@@ -48,7 +54,10 @@ int main(int argc, char **argv)
     }
 
     encode_the_message(string, encoded_string);
-    printf("\nEncoded message: %s", encoded_string);
+    printf("\nEncoded message: %s\n", encoded_string);
+
+    decode_the_message(encoded_string, decoded_string);
+    printf("\nDecoded message: %s\n", decoded_string);
     return 0;
 }
 
@@ -162,6 +171,21 @@ int count_number_of_nodes(void)
     return i;
 }
 
+void print_tree(node_t *node)
+{
+    node_t *temp = node;
+
+    if (temp->left == NULL && temp->right == NULL)
+    {
+	printf("%c %d\n", temp->data, temp->frequency);	
+    }
+    else
+    {
+	print_tree(temp->left);
+	print_tree(temp->right);
+    }
+}
+
 void calculate_codes(node_t *node, char code[])
 {
     int i, j;
@@ -206,15 +230,83 @@ void calculate_codes(node_t *node, char code[])
 
 void encode_the_message(char *string, char *encoded_string)
 {
-    int i, j, encoded_string_pointer;    
+    int i, j, encoded_string_pointer, symbol_pointer;    
 
     for (i = encoded_string_pointer = 0; string[i] != '\0'; i++)
     {
-	for (j = 0; codes[i][j] != '\0'; j++)
+	symbol_pointer = symbol_is_written(string[i]);
+	
+	for (j = 0; codes[symbol_pointer][j] != '\0'; j++)
 	{
-	    encoded_string[encoded_string_pointer++] = codes[i][j];
+	    encoded_string[encoded_string_pointer++] = codes[symbol_pointer][j];
 	}
     }
     encoded_string[encoded_string_pointer] = '\0';
 
 }
+
+void decode_the_message(char *message, char *decoded_message)
+{
+    char temp_code[MAX_LEN];
+
+    int i, temp_pointer, decoded_pointer, symbol_pointer;
+
+    for (i = temp_pointer = decoded_pointer = 0; message[i] != '\0'; i++)
+    {
+	temp_code[temp_pointer++] = message[i];
+	temp_code[temp_pointer] = '\0';
+
+	if ((symbol_pointer = code_is_written(temp_code)) != -1)
+	{
+	    decoded_message[decoded_pointer++] = symbols[symbol_pointer];
+	    temp_pointer = 0;
+	}
+    }
+    decoded_message[decoded_pointer] = '\0';
+}
+
+int code_is_written(char *code)
+{
+    int i;
+
+    for (i = 0; codes[i][0]; i++)
+    {
+	if (are_equal(codes[i], code))
+	{
+	    return i;
+	}
+    }
+
+    return -1;
+}
+
+int symbol_is_written(char symbol)
+{
+    int i;
+
+    for (i = 0; symbols[i] != '\0'; i++)
+    {
+	if (symbols[i] == symbol)
+	{
+	    return i;
+	}
+    }
+
+    return -1;
+}
+
+int are_equal(char *string1, char *string2)
+{
+    int i;
+
+    for (i = 0; string1[i] != '\0' || string2[i] != '\0'; i++)
+    {
+	if (string1[i] != string2[i])
+	{
+	    return 0;
+	}
+    }
+
+    return 1;
+}
+
