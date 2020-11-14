@@ -1,1 +1,2 @@
+# Shannon-Fano encription algorithm
 
