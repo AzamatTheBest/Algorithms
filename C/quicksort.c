@@ -23,7 +23,7 @@ void quicksort(int *array, int low, int high)
 {
     int pi;
     
-    if (low < high)
+    if (low <= high)
     {
 	pi = partition(array, low, high);
 
