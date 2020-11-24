@@ -1,2 +1,2 @@
 # Hash Tables
-Here are my own hash function implementatinos. ageNameHash.c deals with collision with linked lists, so that's not good. Because complexity of serching a value inceraes to O(n).
+Here are my own hash function implementatinos. File hash1.c deals with collision with linked lists, so that's not good. Because complexity of serching a value inceraes to O(n). Second implementation is a little bit better, if hash function returned us already filled location, we just go through the table until we find a free place. If we will not find a free place, then we will use realloc to extend our hash table.
