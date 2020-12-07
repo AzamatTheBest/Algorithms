@@ -17,7 +17,10 @@ static node_t root_node;
 
 void count_frequencies(char *string);
 int is_symbol_written(char symbol);
-void sort_nodes(void);
+void sort_nodes(node_t *nodes, int low, int high);
+int partition(node_t *nodes, int low, int high);
+
+
 void create_tree(void);
 int count_number_of_nodes(void);
 void print_tree(node_t *node);
@@ -64,7 +67,7 @@ int main(int argc, char **argv)
 
 void count_frequencies(char *string)
 {
-    int i, j, pointer;
+    int i, j, pointer, size;
 
     for (i = pointer = 0; string[i] != '\0'; i++)
     {
@@ -87,7 +90,7 @@ void count_frequencies(char *string)
 	}
     }
 
-    sort_nodes();
+    sort_nodes(nodes, 0, pointer - 1);
 
     for (i = 0; nodes[i].frequency; i++)
     {
@@ -110,25 +113,43 @@ int is_symbol_written(char symbol)
     return 0;
 }
 
-void sort_nodes(void)
+void sort_nodes(node_t *nodes, int low, int high)
 {
-    int i, j;
+    int pi;
 
-    node_t temp;
-
-    for (i = 0; nodes[i].data; i++)
+    if (low <= high)
     {
-	for (j = 0; nodes[j + 1].data; j++)
-	{
-	    if (nodes[j].frequency > nodes[j + 1].frequency)
-	    {
-		temp = nodes[j];
-		nodes[j] = nodes[j + 1];
-		nodes[j + 1] = temp;
+	pi = partition(nodes, low, high);
 
-	    }
+	sort_nodes(nodes, low, pi - 1);
+	sort_nodes(nodes, pi + 1, high);
+    }
+}
+
+int partition(node_t *nodes, int low, int high)
+{
+    int pivot, i, j;
+    node_t temp;
+    
+    pivot = nodes[high].frequency;
+    i = low - 1;
+
+    for (j = low; j <= high - 1; j++)
+    {
+	if (nodes[j].frequency < pivot)
+	{
+	    i++;
+	    temp = nodes[j];
+	    nodes[j] = nodes[i];
+	    nodes[i] = temp;
 	}
     }
+
+    temp = nodes[high];
+    nodes[high] = nodes[i + 1];
+    nodes[i + 1] = temp;
+
+    return i + 1;
 }
 
 void create_tree(void)
