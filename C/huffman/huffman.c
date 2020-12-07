@@ -17,7 +17,8 @@ static node_t root_node;
 
 void count_frequencies(char *string);
 int is_symbol_written(char symbol);
-void sort_nodes(node_t *nodes, int low, int high);
+// I'll be using quicksort: complexity - O(log n)
+void sort_nodes(node_t *nodes, int low, int high); 
 int partition(node_t *nodes, int low, int high);
 
 
