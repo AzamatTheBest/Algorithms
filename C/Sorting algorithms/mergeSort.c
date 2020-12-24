@@ -11,7 +11,7 @@ int main(int argc, char **argv)
 {
     int array[5] = {5,3,4,2,1};
     int size = sizeof(array) / sizeof(int);
-		merge_sort(array, 0, size - 1);
+    merge_sort(array, 0, size - 1);
 
     int i;
     for (i = 0; i < size; i++)
