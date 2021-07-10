@@ -26,7 +26,7 @@ void swap(int *a, int *b)
 
 void insertion_sort(int *array, int size)
 {
-    int i, j, current;
+    int i, j;
 
     for (i = 1; i < size; i++)
     {
